@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | Sierra Robison</title>
+    <meta
+      name="description"
+      content="Selected engineering, AI, hardware, and research projects by Sierra Robison."
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script defer src="assets/js/projects-data.js"></script>
+    <script defer src="assets/js/site.js"></script>
+  </head>
+  <body data-page="projects">
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="container nav-wrap">
+          <a class="brand" href="index.html">
+            <span class="brand-mark">SR</span>
+            <span class="brand-copy">
+              <strong>Sierra Robison</strong>
+              <span>Biomedical Engineering Portfolio</span>
+            </span>
+          </a>
+
+          <nav class="site-nav" aria-label="Primary">
+            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link active" href="projects.html">Projects</a>
+            <a class="nav-link" href="resume-contact.html">Resume / Contact</a>
+          </nav>
+
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">
+            <span class="theme-toggle-light">Light</span>
+            <span class="theme-toggle-dark">Dark</span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="page-hero">
+          <div class="container page-hero-grid">
+            <div class="reveal">
+              <p class="eyebrow">Projects</p>
+              <h1>Engineering work across code, hardware, CAD, and research</h1>
+              <p class="page-intro">
+                This collection highlights systems thinking across mechanical design, AI, prototyping, and
+                healthcare-focused engineering.
+              </p>
+            </div>
+            <div class="page-hero-card glass-card reveal reveal-delay">
+              <p>Open a project card to explore media, technical details, and supporting links.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <div class="filter-bar reveal" id="project-filters" aria-label="Project categories">
+              <button class="filter-chip active" type="button" data-filter="all">All Projects</button>
+              <button class="filter-chip" type="button" data-filter="CAD & Design">CAD &amp; Design</button>
+              <button class="filter-chip" type="button" data-filter="Code & AI">Code &amp; AI</button>
+              <button class="filter-chip" type="button" data-filter="Hardware / Systems">Hardware / Systems</button>
+              <button class="filter-chip" type="button" data-filter="Research & Professional">Research &amp; Professional</button>
+            </div>
+
+            <div class="projects-grid" id="projects-grid" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section class="section section-alt">
+          <div class="container">
+            <div class="section-heading reveal">
+              <p class="eyebrow">Additional Experience</p>
+              <h2>Hands-on lab and fabrication support</h2>
+            </div>
+            <div class="additional-experience card reveal reveal-delay">
+              <p>CNC machining across mill and lathe projects</p>
+              <p>Soldering workshop instruction</p>
+              <p>CNC training manual development</p>
+              <p>Circuit board preparation for lab demonstrations</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <div class="modal" id="project-modal" aria-hidden="true">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <button class="modal-close" type="button" data-close-modal aria-label="Close project details">Close</button>
+          <div class="modal-content" id="modal-content"></div>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <div class="container footer-wrap">
+          <p>Sierra Robison</p>
+          <p>Engineering projects spanning medtech, fabrication, and applied AI.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

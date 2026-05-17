@@ -1,8 +1,8 @@
 # Sierra Robison Portfolio
 
-Static portfolio site for Sierra Robison, featuring an about page, project gallery, and resume/contact page. The site is designed to deploy directly to GitHub Pages from the repository root.
+Static portfolio site for Sierra Robison, featuring an about page, project gallery, and resume/contact page. The site is designed to deploy directly to GitHub Pages from the repository root. 
 
-## Live URL
+## Live URL .
 
 After GitHub Pages is configured and the workflow succeeds, the site should publish at:
 

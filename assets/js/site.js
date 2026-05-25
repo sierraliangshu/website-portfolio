@@ -90,7 +90,7 @@
   function renderMediaItem(item) {
     if (item.type === "image") {
       return (
-        '<figure class="media-card">' +
+        '<figure class="media-card media-card-image">' +
         '<img src="' +
         item.src +
         '" alt="' +
@@ -102,7 +102,7 @@
 
     if (item.type === "video") {
       return (
-        '<figure class="media-card">' +
+        '<figure class="media-card media-card-video">' +
         '<video controls preload="metadata" aria-label="' +
         item.alt +
         '">' +
@@ -184,6 +184,33 @@
     var modalContent = document.getElementById("modal-content");
     var filterBar = document.getElementById("project-filters");
     var activeFilter = "all";
+    var imageLightbox = document.createElement("div");
+    var imageLightboxImg = document.createElement("img");
+
+    imageLightbox.className = "image-lightbox";
+    imageLightbox.setAttribute("aria-hidden", "true");
+    imageLightbox.setAttribute("role", "dialog");
+    imageLightbox.setAttribute("aria-label", "Expanded project image");
+    imageLightbox.innerHTML =
+      '<button class="image-lightbox-close" type="button" aria-label="Close image">Close</button>';
+    imageLightbox.appendChild(imageLightboxImg);
+    document.body.appendChild(imageLightbox);
+
+    function openImageLightbox(src, alt) {
+      imageLightboxImg.src = src;
+      imageLightboxImg.alt = alt || "Expanded project image";
+      imageLightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeImageLightbox() {
+      imageLightbox.setAttribute("aria-hidden", "true");
+      imageLightboxImg.removeAttribute("src");
+      imageLightboxImg.removeAttribute("alt");
+      if (modal.getAttribute("aria-hidden") === "true") {
+        document.body.classList.remove("modal-open");
+      }
+    }
 
     function drawCards() {
       var filtered = projects.filter(function (project) {
@@ -212,6 +239,7 @@
     }
 
     function closeModal() {
+      closeImageLightbox();
       modal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
       modalContent.innerHTML = "";
@@ -232,7 +260,26 @@
       }
     });
 
+    modalContent.addEventListener("click", function (event) {
+      var clickedImage = event.target.closest(".media-card-image img");
+      if (!clickedImage) return;
+      openImageLightbox(clickedImage.currentSrc || clickedImage.src, clickedImage.alt);
+    });
+
+    imageLightbox.addEventListener("click", function (event) {
+      if (
+        event.target === imageLightbox ||
+        event.target.classList.contains("image-lightbox-close")
+      ) {
+        closeImageLightbox();
+      }
+    });
+
     document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && imageLightbox.getAttribute("aria-hidden") === "false") {
+        closeImageLightbox();
+        return;
+      }
       if (event.key === "Escape" && modal.getAttribute("aria-hidden") === "false") {
         closeModal();
       }

@@ -59,6 +59,21 @@ body {
   line-height: 1.6;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, transparent 0 18%, rgba(255, 122, 47, 0.12) 18.2%, transparent 18.6% 100%),
+    linear-gradient(45deg, transparent 0 31%, rgba(255, 122, 47, 0.08) 31.2%, transparent 31.55% 100%),
+    linear-gradient(135deg, transparent 0 58%, rgba(255, 122, 47, 0.08) 58.15%, transparent 58.45% 100%),
+    linear-gradient(90deg, transparent 0 72%, rgba(255, 122, 47, 0.06) 72.1%, transparent 72.3% 100%);
+  background-size: 34rem 34rem, 28rem 28rem, 42rem 42rem, 24rem 24rem;
+  opacity: 0.72;
+}
+
 body.modal-open {
   overflow: hidden;
 }
@@ -88,6 +103,8 @@ select {
 
 .site-shell {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .site-header {
@@ -276,15 +293,17 @@ select {
 }
 
 .hero-card,
+.hero-skills,
 .page-hero-card,
 .card {
   border-radius: var(--radius-lg);
 }
 
-.hero-card {
+.hero-card,
+.hero-skills {
   position: relative;
   z-index: 1;
-  padding: 1.5rem;
+  overflow: hidden;
 }
 
 .hero-card-label,
@@ -310,6 +329,62 @@ select {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.hero-skill-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.hero-skills-bar {
+  background: color-mix(in srgb, var(--bg-strong) 64%, transparent);
+  border-color: var(--line);
+}
+
+.hero-skills-bar-top {
+  border-bottom: 1px solid var(--line);
+  padding: 1rem 1.25rem 0.25rem;
+}
+
+.hero-skills-bar-bottom {
+  border-top: 1px solid var(--line);
+  padding: 1rem 1.25rem;
+}
+
+.hero-skill-tile {
+  display: grid;
+  align-content: start;
+  min-height: 9rem;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--bg-strong) 72%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+.hero-skill-tile h2 {
+  margin: 0 0 0.55rem;
+  color: var(--primary);
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.hero-skill-tile ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.hero-skill-tile li + li {
+  margin-top: 0.25rem;
+}
+
+.hero-resume-link {
+  width: 100%;
 }
 
 .metric-card {
@@ -784,8 +859,13 @@ select {
   .contact-preview,
   .additional-experience,
   .modal-gallery,
-  .hero-metrics {
+  .hero-metrics,
+  .hero-skill-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-skill-tile {
+    min-height: auto;
   }
 
   .site-nav,

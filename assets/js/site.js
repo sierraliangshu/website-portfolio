@@ -261,6 +261,82 @@
       modalContent.innerHTML = "";
     }
 
+    function initProjectSprite() {
+      var spriteCallout = document.querySelector("[data-project-sprite]");
+      if (!spriteCallout) return;
+
+      var spriteButton = spriteCallout.querySelector("[data-project-sprite-button]");
+      var spriteImage = spriteCallout.querySelector("[data-project-sprite-image]");
+      var spriteBubble = spriteCallout.querySelector(".project-sprite-bubble");
+      var targetChip = filterBar.querySelector('[data-filter="Research & Professional"]');
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var hasEntered = false;
+
+      function placeSprite() {
+        if (!targetChip) return;
+
+        var chipRect = targetChip.getBoundingClientRect();
+        var parentRect = spriteCallout.offsetParent
+          ? spriteCallout.offsetParent.getBoundingClientRect()
+          : { left: 0, top: 0 };
+        var parentWidth = spriteCallout.offsetParent ? spriteCallout.offsetParent.clientWidth : window.innerWidth;
+        var calloutWidth = spriteCallout.offsetWidth || 272;
+        var spriteButtonHeight = spriteButton ? spriteButton.offsetHeight : 82;
+        var spriteBubbleHeight = spriteBubble ? spriteBubble.offsetHeight + 9 : 74;
+        var left = chipRect.left - parentRect.left + chipRect.width / 2 - calloutWidth / 2;
+        var top = chipRect.top - parentRect.top - spriteBubbleHeight - spriteButtonHeight - 14;
+        var minLeft = 16;
+        var maxLeft = parentWidth - calloutWidth - 16;
+
+        left = Math.max(minLeft, Math.min(left, maxLeft));
+
+        spriteCallout.style.left = left + "px";
+        spriteCallout.style.top = top + "px";
+        spriteCallout.style.setProperty("--sprite-run-distance", window.innerWidth - chipRect.left + calloutWidth + "px");
+      }
+
+      function settleSprite() {
+        if (spriteImage) {
+          spriteImage.src = "assets/media/projects/sprite-idle.png";
+          spriteImage.alt = "Idle game sprite";
+        }
+        spriteCallout.classList.remove("is-running");
+        spriteCallout.classList.add("is-settled");
+        spriteCallout.setAttribute("aria-hidden", "false");
+        hasEntered = true;
+      }
+
+      placeSprite();
+
+      if (spriteImage && !spriteImage.complete) {
+        spriteImage.addEventListener("load", placeSprite, { once: true });
+      }
+
+      if (reduceMotion) {
+        settleSprite();
+      } else {
+        spriteCallout.classList.add("is-ready", "is-running");
+        spriteCallout.setAttribute("aria-hidden", "false");
+        window.requestAnimationFrame(function () {
+          spriteCallout.classList.add("is-entering");
+        });
+        window.setTimeout(settleSprite, 2300);
+      }
+
+      if (spriteButton) {
+        spriteButton.addEventListener("click", function () {
+          openModal("godot-game");
+        });
+      }
+
+      window.addEventListener("resize", function () {
+        placeSprite();
+        if (hasEntered || reduceMotion) {
+          spriteCallout.classList.add("is-settled");
+        }
+      });
+    }
+
     filterBar.addEventListener("click", function (event) {
       if (!event.target.matches("[data-filter]")) return;
       activeFilter = event.target.getAttribute("data-filter");
@@ -311,6 +387,7 @@
     });
 
     drawCards();
+    initProjectSprite();
   }
 
   document.addEventListener("DOMContentLoaded", function () {

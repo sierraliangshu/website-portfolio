@@ -1,5 +1,23 @@
 window.PROJECTS_DATA = [
   {
+    id: "godot-game",
+    title: "Current Project - Godot Game",
+    category: "Code & AI",
+    summary: "A personal game development project built in Godot, featuring custom sprite art, gameplay systems, and iterative scene design.",
+    details:
+      "This current personal project combines game programming, sprite art, gameplay design, and editor-based scene building in Godot. The character sprite featured on the Projects page is part of the game, with custom idle and run states created for the player character while the gameplay environment and systems continue to develop.",
+    highlights: [
+      "Created custom sprite artwork and idle/run states",
+      "Built gameplay scenes and systems in Godot",
+      "Iterating on a current personal coding project"
+    ],
+    media: [
+      { type: "image", src: "assets/media/projects/sprite-scene.png", alt: "Gameplay scene screenshot from current Godot game project" },
+      { type: "image", src: "assets/media/projects/godot-editior.png", alt: "Godot editor screenshot for current game project" }
+    ],
+    links: []
+  },
+  {
     id: "millennium-falcon",
     title: "Millennium Falcon Model",
     category: "CAD & Design",

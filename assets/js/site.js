@@ -103,7 +103,7 @@
     if (item.type === "video") {
       return (
         '<figure class="media-card media-card-video">' +
-        '<video controls preload="metadata" aria-label="' +
+        '<video preload="metadata" aria-label="' +
         item.alt +
         '">' +
         '<source src="' +
@@ -184,29 +184,45 @@
     var modalContent = document.getElementById("modal-content");
     var filterBar = document.getElementById("project-filters");
     var activeFilter = "all";
-    var imageLightbox = document.createElement("div");
-    var imageLightboxImg = document.createElement("img");
+    var mediaLightbox = document.createElement("div");
+    var mediaLightboxBody = document.createElement("div");
 
-    imageLightbox.className = "image-lightbox";
-    imageLightbox.setAttribute("aria-hidden", "true");
-    imageLightbox.setAttribute("role", "dialog");
-    imageLightbox.setAttribute("aria-label", "Expanded project image");
-    imageLightbox.innerHTML =
-      '<button class="image-lightbox-close" type="button" aria-label="Close image">Close</button>';
-    imageLightbox.appendChild(imageLightboxImg);
-    document.body.appendChild(imageLightbox);
+    mediaLightbox.className = "media-lightbox";
+    mediaLightbox.setAttribute("aria-hidden", "true");
+    mediaLightbox.setAttribute("role", "dialog");
+    mediaLightbox.setAttribute("aria-label", "Expanded project media");
+    mediaLightbox.innerHTML =
+      '<button class="media-lightbox-close" type="button" aria-label="Close media">Close</button>';
+    mediaLightboxBody.className = "media-lightbox-body";
+    mediaLightbox.appendChild(mediaLightboxBody);
+    document.body.appendChild(mediaLightbox);
 
-    function openImageLightbox(src, alt) {
-      imageLightboxImg.src = src;
-      imageLightboxImg.alt = alt || "Expanded project image";
-      imageLightbox.setAttribute("aria-hidden", "false");
+    function openMediaLightbox(type, src, alt) {
+      if (!src) return;
+      if (type === "video") {
+        mediaLightboxBody.innerHTML =
+          '<video controls autoplay preload="metadata" aria-label="' +
+          (alt || "Expanded project video") +
+          '">' +
+          '<source src="' +
+          src +
+          '" />' +
+          "</video>";
+      } else {
+        mediaLightboxBody.innerHTML =
+          '<img src="' +
+          src +
+          '" alt="' +
+          (alt || "Expanded project image") +
+          '" loading="eager" />';
+      }
+      mediaLightbox.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-open");
     }
 
-    function closeImageLightbox() {
-      imageLightbox.setAttribute("aria-hidden", "true");
-      imageLightboxImg.removeAttribute("src");
-      imageLightboxImg.removeAttribute("alt");
+    function closeMediaLightbox() {
+      mediaLightbox.setAttribute("aria-hidden", "true");
+      mediaLightboxBody.innerHTML = "";
       if (modal.getAttribute("aria-hidden") === "true") {
         document.body.classList.remove("modal-open");
       }
@@ -239,7 +255,7 @@
     }
 
     function closeModal() {
-      closeImageLightbox();
+      closeMediaLightbox();
       modal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
       modalContent.innerHTML = "";
@@ -262,22 +278,31 @@
 
     modalContent.addEventListener("click", function (event) {
       var clickedImage = event.target.closest(".media-card-image img");
-      if (!clickedImage) return;
-      openImageLightbox(clickedImage.currentSrc || clickedImage.src, clickedImage.alt);
+      if (clickedImage) {
+        openMediaLightbox("image", clickedImage.currentSrc || clickedImage.src, clickedImage.alt);
+        return;
+      }
+
+      var clickedVideoCard = event.target.closest(".media-card-video");
+      if (!clickedVideoCard) return;
+      var previewVideo = clickedVideoCard.querySelector("video");
+      if (!previewVideo) return;
+      var source = previewVideo.currentSrc || (previewVideo.querySelector("source") && previewVideo.querySelector("source").src);
+      openMediaLightbox("video", source, previewVideo.getAttribute("aria-label"));
     });
 
-    imageLightbox.addEventListener("click", function (event) {
+    mediaLightbox.addEventListener("click", function (event) {
       if (
-        event.target === imageLightbox ||
-        event.target.classList.contains("image-lightbox-close")
+        event.target === mediaLightbox ||
+        event.target.classList.contains("media-lightbox-close")
       ) {
-        closeImageLightbox();
+        closeMediaLightbox();
       }
     });
 
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && imageLightbox.getAttribute("aria-hidden") === "false") {
-        closeImageLightbox();
+      if (event.key === "Escape" && mediaLightbox.getAttribute("aria-hidden") === "false") {
+        closeMediaLightbox();
         return;
       }
       if (event.key === "Escape" && modal.getAttribute("aria-hidden") === "false") {

@@ -129,9 +129,19 @@
 
         <section class="section section-alt">
           <div class="container">
-            <div class="section-heading reveal">
-              <p class="eyebrow">Strengths</p>
-              <h2>How I approach engineering work</h2>
+            <div class="section-heading section-heading-with-dog reveal">
+              <div>
+                <p class="eyebrow">Strengths</p>
+                <h2>How I approach engineering work</h2>
+              </div>
+              <button class="strengths-dog-callout" type="button" data-journey-open aria-label="Open guided tour of Sierra's engineering journey">
+                <div class="strengths-dog-bubble">Click me for a guided tour of Sierra's engineering journey</div>
+                <img
+                  class="strengths-dog"
+                  src="assets/media/projects/dog-gif.gif"
+                  alt="Animated dog sitting by the strengths section"
+                />
+              </button>
             </div>
             <div class="traits-grid">
               <article class="trait-card card reveal">
@@ -172,6 +182,110 @@
           </div>
         </section>
       </main>
+
+      <div class="journey-modal" id="journey-modal" aria-hidden="true">
+        <div class="journey-backdrop" data-journey-close></div>
+        <div class="journey-dialog" role="dialog" aria-modal="true" aria-labelledby="journey-title">
+          <button class="journey-close" type="button" data-journey-close aria-label="Close engineering journey">Close</button>
+          <div class="journey-header">
+            <p class="eyebrow">Guided Tour</p>
+            <h2 id="journey-title">Sierra's Engineering Journey</h2>
+            <img class="journey-header-icon journey-header-beaker" src="assets/media/projects/beaker-icon.png" alt="" aria-hidden="true" />
+            <img class="journey-header-icon journey-header-pencil" src="assets/media/projects/pencil-icon.png" alt="" aria-hidden="true" />
+            <p>
+              A deeper walkthrough of the projects that shaped how I connect artificial intelligence, medical
+              technology, mechanical design, hands-on fabrication, electronics, and teaching.
+            </p>
+          </div>
+
+          <div class="journey-canvas">
+            <img class="journey-floating-icon journey-floating-computer" src="assets/media/projects/computer-icon.png" alt="" aria-hidden="true" />
+            <img class="journey-floating-icon journey-floating-electric" src="assets/media/projects/electric-components-icon.png" alt="" aria-hidden="true" />
+            <img class="journey-floating-icon journey-floating-wrench" src="assets/media/projects/wrench-icon.png" alt="" aria-hidden="true" />
+            <img class="journey-floating-icon journey-floating-hardhat" src="assets/media/projects/hard-hat-icon.png" alt="" aria-hidden="true" />
+            <img class="journey-floating-icon journey-floating-paper" src="assets/media/projects/paper-icon.png" alt="" aria-hidden="true" />
+            <img class="journey-floating-icon journey-floating-apple" src="assets/media/projects/apple-icon.png" alt="" aria-hidden="true" />
+            <div class="journey-blurb journey-blurb-ai">
+              <h3>AI became a way to imagine helping patients.</h3>
+              <p>
+                My early curiosity about artificial intelligence first clicked through AI4ALL, where I explored chest
+                X-ray classification. It gave me a concrete bridge between code, medical data, and my long-standing
+                interest in helping people through healthcare.
+              </p>
+            </div>
+            <figure class="journey-photo journey-photo-ai">
+              <img src="assets/media/projects/ai4all-data.png" alt="AI4ALL medical imaging project graph" />
+              <figcaption>AI4ALL introduced me to medical imaging, data, and model performance.</figcaption>
+            </figure>
+            <img class="journey-asset-arrow journey-arrow-ai" src="assets/media/projects/arrow_southwest_transparent.png" alt="" aria-hidden="true" />
+
+            <figure class="journey-photo journey-photo-medtronic">
+              <img src="assets/media/projects/medtronic-me.png" alt="Sierra during Medtronic internship presentation" />
+              <figcaption>At Medtronic, AI connected to surgical robotics and real medical technology.</figcaption>
+            </figure>
+            <div class="journey-blurb journey-blurb-medtronic">
+              <h3>Computer vision made medical robotics feel real.</h3>
+              <p>
+                My internship at Medtronic expanded that AI thread into surgical robotics. Working around 6D pose
+                estimation showed me how algorithms can support physical systems in high-stakes medical settings.
+              </p>
+            </div>
+
+            <div class="journey-blurb journey-blurb-bluegait">
+              <h3>Then I wanted to build systems people could wear and use.</h3>
+              <p>
+                BlueGait moved me from algorithms into rehabilitation hardware. Designing sensor modules, feedback,
+                and housings helped me think about medical devices as human-centered systems.
+              </p>
+            </div>
+            <img class="journey-asset-arrow journey-arrow-gait-image" src="assets/media/projects/arrow_east_transparent.png" alt="" aria-hidden="true" />
+            <figure class="journey-photo journey-photo-bluegait">
+              <img src="assets/media/projects/gait-components.png" alt="BlueGait wearable rehabilitation device components" />
+              <figcaption>BlueGait combined sensing, feedback, and rehabilitation-focused design.</figcaption>
+            </figure>
+            <img class="journey-asset-arrow journey-arrow-emg-gait" src="assets/media/projects/arrow_north_transparent.png" alt="" aria-hidden="true" />
+
+            <figure class="journey-photo journey-photo-emg">
+              <img src="assets/media/projects/emg-circuit.png" alt="EMG system circuit diagram" />
+              <figcaption>The EMG system connected biological signals to electronic processing and motion.</figcaption>
+            </figure>
+            <div class="journey-blurb journey-blurb-emg">
+              <h3>Medical electronics gave the device work another layer.</h3>
+              <p>
+                The EMG system taught me how muscle signals can be amplified, filtered, interpreted, and translated
+                into mechanical output. It made the electrical-to-mechanical bridge feel tangible.
+              </p>
+            </div>
+            <img class="journey-asset-arrow journey-arrow-emg-image" src="assets/media/projects/arrow_west_transparent.png" alt="" aria-hidden="true" />
+
+            <div class="journey-blurb journey-blurb-epic">
+              <h3>Mechanics, CAD, and fabrication became part of how I think.</h3>
+              <p>
+                Taking mechanics and working at EPIC helped me discover how much I enjoy physical design. CAD,
+                machining, rapid prototyping, and shop work gave me the hands-on confidence to turn ideas into objects.
+              </p>
+            </div>
+            <figure class="journey-photo journey-photo-epic">
+              <img src="assets/media/projects/drill-reproduction.png" alt="Scanned drill with laser cut and 3D printed reproductions" />
+              <figcaption>EPIC gave me practical experience with scanning, fabrication, machining, and prototyping.</figcaption>
+            </figure>
+            <img class="journey-asset-arrow journey-arrow-teaching" src="assets/media/projects/arrow_northeast_transparent.png" alt="" aria-hidden="true" />
+
+            <figure class="journey-photo journey-photo-la">
+              <img src="assets/media/projects/la-expo-me.png" alt="Learning Assistant expo presentation" />
+              <figcaption>Teaching mechanics helped me care about how people learn engineering.</figcaption>
+            </figure>
+            <div class="journey-blurb journey-blurb-la">
+              <h3>Teaching became its own kind of engineering challenge.</h3>
+              <p>
+                As a Learning Assistant, I found a love for helping students connect with mechanics. I learned to think
+                about how different people approach problems and how to make difficult material feel exciting,
+                approachable, and worth sticking with.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <footer class="site-footer">
         <div class="container footer-wrap">

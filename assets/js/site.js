@@ -87,6 +87,85 @@
     );
   }
 
+  function initJourneyGuide() {
+    if (document.body.dataset.page !== "home") return;
+
+    var openButton = document.querySelector("[data-journey-open]");
+    var modal = document.getElementById("journey-modal");
+    if (!openButton || !modal) return;
+
+    var closeButtons = modal.querySelectorAll("[data-journey-close]");
+    var lightbox = document.createElement("div");
+    var lightboxBody = document.createElement("div");
+
+    lightbox.className = "journey-lightbox";
+    lightbox.setAttribute("aria-hidden", "true");
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-label", "Expanded journey image");
+    lightbox.innerHTML = '<button class="journey-lightbox-close" type="button" aria-label="Close expanded image">Close</button>';
+    lightboxBody.className = "journey-lightbox-body";
+    lightbox.appendChild(lightboxBody);
+    document.body.appendChild(lightbox);
+
+    function openJourney() {
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeJourney() {
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    function openJourneyImage(image) {
+      lightboxBody.innerHTML =
+        '<img src="' +
+        (image.currentSrc || image.src) +
+        '" alt="' +
+        (image.alt || "Expanded journey image") +
+        '" loading="eager" />';
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeJourneyImage() {
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxBody.innerHTML = "";
+      if (modal.getAttribute("aria-hidden") === "true") {
+        document.body.classList.remove("modal-open");
+      }
+    }
+
+    openButton.addEventListener("click", openJourney);
+
+    closeButtons.forEach(function (button) {
+      button.addEventListener("click", closeJourney);
+    });
+
+    modal.addEventListener("click", function (event) {
+      var image = event.target.closest(".journey-photo img");
+      if (image) {
+        openJourneyImage(image);
+      }
+    });
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox || event.target.classList.contains("journey-lightbox-close")) {
+        closeJourneyImage();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && lightbox.getAttribute("aria-hidden") === "false") {
+        closeJourneyImage();
+        return;
+      }
+      if (event.key === "Escape" && modal.getAttribute("aria-hidden") === "false") {
+        closeJourney();
+      }
+    });
+  }
+
   function renderMediaItem(item) {
     if (item.type === "image") {
       return (
@@ -393,6 +472,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     initTheme();
     initReveal();
+    initJourneyGuide();
     initProjects();
   });
 })();

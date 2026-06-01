@@ -1067,11 +1067,11 @@ select {
 }
 
 .journey-floating-wrench {
-  grid-column: 1;
+  grid-column: 5;
   grid-row: 3;
   align-self: start;
-  justify-self: end;
-  transform: rotate(-8deg);
+  justify-self: start;
+  transform: translate(2.25rem, 0.15rem) rotate(-8deg);
 }
 
 .journey-floating-hardhat {
@@ -1161,7 +1161,7 @@ select {
   grid-row: 1 / span 2;
   align-self: center;
   justify-self: start;
-  width: min(8.5rem, 100%);
+  width: min(6.6rem, 100%);
   transform: translate(-0.5rem, 1.25rem) scaleX(-1);
 }
 
